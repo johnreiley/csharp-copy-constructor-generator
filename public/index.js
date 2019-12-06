@@ -7,16 +7,18 @@ function convertInput() {
     var propertyAssignments = input
         .split('\n')
         .filter((item) => {
+            console.log(item.split(' '));
             return (
                 item !== "" &&
                 item !== " " &&
-                !item.includes('[') // get rid of property attributes
+                !item.includes('[') //&& // get rid of property attributes
             )
         })
         .map((item) => {
             item = item
                 .split(' ')
                 .filter(item => {
+                    console.log(item)
                     return (
                         item !== '' &&
                         item !== 'public' &&
@@ -25,22 +27,30 @@ function convertInput() {
                         item !== 'internal' &&
                         item !== 'static'
                     )
-                })
-            var type = item[0];
-            var propertyName = item[1];
+                });
 
-            // get ride of nullable types
-            if (type[type.length - 1] === '?') {
-                type = type.slice(0, type.length - 1)
-            }
+            if (item.length > 0) {
 
-            // determine if it needs to be newed up
-            if (datatypes.includes(type)) {
-                return `\t${propertyName} = ${objectName}.${propertyName};`;
-            } else {
-                return `\t${propertyName} = new ${type}(${objectName}.${propertyName});`;
+                console.log(item);
+                var type = item[0];
+                var propertyName = item[1];
+
+                // get ride of nullable types
+                if (type[type.length - 1] === '?') {
+                    type = type.slice(0, type.length - 1)
+                }
+
+                // determine if it needs to be newed up
+                if (datatypes.includes(type)) {
+                    return `\t${propertyName} = ${objectName}.${propertyName};`;
+                } else {
+                    return `\t${propertyName} = new ${type}(${objectName}.${propertyName});`;
+                }
             }
+            return null;
+
         })
+        .filter(i => i !== null)
         .join('\n')
 
     console.log(input);
@@ -52,14 +62,14 @@ function convertInput() {
 
 
 var datatypes = [
-    'int', 
-    'long', 
-    'float', 
-    'double', 
-    'decimal', 
-    'char', 
-    'bool', 
+    'int',
+    'long',
+    'float',
+    'double',
+    'decimal',
+    'char',
+    'bool',
     'string',
-    'object', 
+    'object',
     'DateTime'
 ]
