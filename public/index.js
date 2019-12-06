@@ -16,19 +16,50 @@ function convertInput() {
         .map((item) => {
             item = item
                 .split(' ')
-                .filter(item => item !== '')[2];
+                .filter(item => {
+                    return (
+                        item !== '' &&
+                        item !== 'public' &&
+                        item !== 'private' &&
+                        item !== 'protected' &&
+                        item !== 'internal' &&
+                        item !== 'static'
+                    )
+                })
+            var type = item[0];
+            var propertyName = item[1];
 
-            return `\t\t${item} = ${objectName}.${item};`;
+            // get ride of nullable types
+            if (type[type.length - 1] === '?') {
+                type = type.slice(0, type.length - 1)
+            }
+
+            // determine if it needs to be newed up
+            if (datatypes.includes(type)) {
+                return `\t${propertyName} = ${objectName}.${propertyName};`;
+            } else {
+                return `\t${propertyName} = new ${type}(${objectName}.${propertyName});`;
+            }
         })
         .join('\n')
 
     console.log(input);
 
-    var constructor = `
-    public ${className}(${className} ${objectName})
-    {
-    ${propertyAssignments}
-    }   
-    `
+    var constructor = `public ${className}(${className} ${objectName})\n{\n${propertyAssignments}\n}`
+
     output.value = constructor;
 }
+
+
+var datatypes = [
+    'int', 
+    'long', 
+    'float', 
+    'double', 
+    'decimal', 
+    'char', 
+    'bool', 
+    'string',
+    'object', 
+    'DateTime'
+]

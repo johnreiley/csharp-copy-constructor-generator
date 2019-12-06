@@ -5,35 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>C# Copy Constructor Generator</title>
     <script src="index.js"></script>
     <style>
         body {
-            background-color: rgb(56, 56, 56);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: rgb(51, 51, 51);
+            /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
         }
 
         .content {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            margin: auto;
+            max-width: calc(100% - 300px);
+            min-width: 400px;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* flex-wrap: wrap; */
         }
 
-        .section {
-            width: 100%;
-            max-width: 900px;
-            padding: 10px;
-        }
-
+        input,
         textarea {
-            width: 100%;
-            font-size: large;
-            height: 60vh;
-        }
-
-        input {
-            padding: 5px;
+            color: white;
+            font-family: monospace;
+            padding-left: 10px !important;
+            border-radius: 5px !important;
+            border: solid gray 1px !important;
+            background-color: rgb(54, 54, 54) !important;
         }
 
         .break {
@@ -41,14 +42,24 @@
             height: 0;
         }
 
-        h2 {
-            color: white;
+        #input {
+            overflow: visible;
+            height: calc(100vh - 400px) !important;
+        }
+
+        #output {
+            overflow: visible;
+            height: calc(100vh - 316px);
+        }
+
+        h4 {
+            color: rgb(236, 236, 236);
         }
     </style>
 </head>
 
 <body>
-    <div class="content">
+    <!-- <div class="content">
         <h2>C# Copy Constructor Generator</h2>
         <div class="break"></div>
         <div class="section">
@@ -61,6 +72,32 @@
         </div>
         <div class="section">
             <textarea name="output" id="output" cols="100" rows="10" placeholder="Output"></textarea>
+        </div>
+    </div> -->
+
+    <div class="content">
+        <div class="row">
+            <form class="col s12">
+                <h4>C# Copy Constructor Generator</h4>
+                <div class="col s6">
+                    <div class="input-field col s12">
+                        <input type="text" id="class-name" placeholder="Class Name">
+                        <!-- <label for="class-name">Class Name</label> -->
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="input" class="materialize-textarea" placeholder="Input" spellcheck="false"></textarea>
+                        <!-- <label for="input">Input</label> -->
+                        <a id="convert-btn" onclick="convertInput()" class="waves-effect waves-light btn">Convert</a>
+                    </div>
+                </div>
+
+                <div class="col s6">
+                    <div class="input-field col s12">
+                        <textarea id="output" class="materialize-textarea" placeholder="Output" spellcheck="false"></textarea>
+                        <!-- <label for="output">Output</label> -->
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
