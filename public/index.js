@@ -11,14 +11,14 @@ function convertInput() {
             return (
                 item !== "" &&
                 item !== " " &&
-                !item.includes('[') //&& // get rid of property attributes
+                !item.includes('[') // get rid of property attributes
             )
         })
         .map((item) => {
             item = item
                 .split(' ')
                 .filter(item => {
-                    console.log(item)
+                    // remove access modifiers and blank spaces
                     return (
                         item !== '' &&
                         item !== 'public' &&
